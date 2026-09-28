@@ -1,0 +1,105 @@
+/*
+  PALETTE RULE (STANDING RULE 4): every color literal in the site lives in
+  this file. Sampled from the real brand assets on 2026-09-28.
+
+  Method: k-means (k-means++ init, seeded, 25 iterations, RGB space) over
+  pixels of each source; every centroid was then SNAPPED to the nearest real
+  pixel of its cluster, so each swatch below is an actual pixel value and
+  coordinate, not an averaged colour.
+
+  Sources and snapped pixels (file @ x,y):
+    brand/LOGO STINGY PNG...png  (RGBA, alpha>=250 pixels, 2000x2000)
+      #130f0b @ 828,512    outline ink
+      #fabb15 @ 1004,580   gold
+      #fcd84a @ 1012,740   gold light
+      #ed940a @ 1292,1080  amber
+      #cb6c06 @ 1272,664   amber deep
+    reference/SAMPUL STINGY JPG.jpg.jpeg  (1500x500)
+      #f8f4e4 @ 1299,3     cream
+      #f4ecc9 @ 456,177    cream deep
+      #d6d9bc @ 1458,366   glass sage
+      #474238 @ 705,291    body ink
+    reference/STINGY 1.jpg.jpeg  (1600x900 dark slide)
+      #010100 @ 156,16     night
+      #fbfbfb @ 204,320    slide white
+      #442b09 @ 1092,452   dark bronze
+
+  Asset notes: "LOGO STINGY PNG...png" is RGBA with 3,236,149 fully
+  transparent pixels whose RGB is pure black, so it was resized with
+  premultiplied alpha (public/logo*.png, public/favicon.svg). The other two
+  logo files are fully opaque on white.
+
+  Documented exceptions outside this file (standalone documents that cannot
+  read CSS variables): public/favicon.svg pixel grid and the theme-color meta
+  in index.html.
+*/
+
+:root {
+  --ink: #130f0b;
+  --gold: #fabb15;
+  --gold-light: #fcd84a;
+  --amber: #ed940a;
+  --amber-deep: #cb6c06;
+  --cream: #f8f4e4;
+  --cream-deep: #f4ecc9;
+  --sage: #d6d9bc;
+  --body-ink: #474238;
+  --night: #010100;
+  --slide-white: #fbfbfb;
+  --bronze: #442b09;
+
+  --bg: var(--cream);
+  --bg-raised: var(--slide-white);
+  --surface: var(--cream-deep);
+  --surface-hover: var(--sage);
+  --border: color-mix(in srgb, var(--ink) 12%, transparent);
+  --border-strong: color-mix(in srgb, var(--ink) 28%, transparent);
+  --text: var(--ink);
+  --text-muted: var(--body-ink);
+  --text-faint: color-mix(in srgb, var(--body-ink) 68%, var(--cream));
+  --accent: var(--gold);
+  --accent-contrast: var(--ink);
+  --accent-text: var(--amber-deep);
+  --ink-solid: var(--ink);
+  --ink-contrast: var(--cream);
+  --positive: var(--body-ink);
+  --negative: var(--amber-deep);
+  --glow: color-mix(in srgb, var(--gold) 45%, transparent);
+  --shadow-md: 0 14px 28px -16px color-mix(in srgb, var(--ink) 45%, transparent);
+  --shadow-lg: 0 28px 60px -28px color-mix(in srgb, var(--ink) 55%, transparent);
+  --shadow-header: 0 10px 26px -22px color-mix(in srgb, var(--ink) 55%, transparent);
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 150ms;
+  --dur-base: 280ms;
+  --dur-slow: 560ms;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: var(--night);
+    --bg-raised: color-mix(in srgb, var(--bronze) 42%, var(--night));
+    --surface: color-mix(in srgb, var(--bronze) 26%, var(--night));
+    --surface-hover: color-mix(in srgb, var(--bronze) 60%, var(--night));
+    --border: color-mix(in srgb, var(--slide-white) 14%, transparent);
+    --border-strong: color-mix(in srgb, var(--slide-white) 32%, transparent);
+    --text: var(--slide-white);
+    --text-muted: color-mix(in srgb, var(--slide-white) 78%, var(--night));
+    --text-faint: color-mix(in srgb, var(--slide-white) 52%, var(--night));
+    --accent-text: var(--gold);
+    --ink-solid: var(--gold);
+    --ink-contrast: var(--ink);
+    --positive: var(--gold-light);
+    --negative: var(--amber);
+    --glow: color-mix(in srgb, var(--gold) 30%, transparent);
+    --shadow-md: 0 14px 30px -14px color-mix(in srgb, var(--night) 90%, transparent);
+    --shadow-lg: 0 30px 70px -26px color-mix(in srgb, var(--night) 95%, transparent);
+    --shadow-header: 0 10px 26px -20px color-mix(in srgb, var(--night) 95%, transparent);
+  }
+}
